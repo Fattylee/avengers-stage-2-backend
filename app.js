@@ -1,33 +1,33 @@
-const express = require('express')
-const app = express()
-const mongoose = require('mongoose')
-const bodyParser = require('body-parser')
-require('dotenv').config()
+const express = require("express");
+const app = express();
+const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
+require("dotenv").config();
 
 //Call in the routes
-const users = require('./routers/users')
-const PORT = 3000
+const users = require("./routers/users");
+const PORT = process.env.PORT || 3000;
 
 //DB Config
-const db = process.env.MONGODB_URI
+const db = process.env.MONGODB_URI;
 
 //Mongoose Connect
 mongoose
   .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('Database Connected'))
-  .catch(err => console.log(err))
+  .then(() => console.log("Database Connected"))
+  .catch((err) => console.log(err));
 
 // Initializing express json Middleware
-app.use(express.json())
-app.use(express.urlencoded({ extended: false }))
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 let options = {
   //specify options
-  host: `localhost:${PORT}`
-}
+  host: `localhost:${PORT}`,
+};
 
-app.use('/api/v1', users)
+app.use("/api/v1", users);
 
 app.listen(PORT, () => {
-  console.log('Server Running!!!!')
-})
+  console.log("Server Running!!!!");
+});
